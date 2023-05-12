@@ -1,0 +1,75 @@
+{
+  "nodes": {
+    "flake-parts": {
+      "inputs": {
+        "nixpkgs-lib": [
+          "nur-wrvsrx",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1682984683,
+        "narHash": "sha256-fSMthG+tp60AHhNmaHc4StT3ltfHkQsJtN8GhfLWmtI=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "86684881e184f41aa322e653880e497b66429f3e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1683020768,
+        "narHash": "sha256-ZyZl6k9NWS5QPwD3NoAVz/eSgodQDvl+y+fu8MVbrHc=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "44f30edf5661d86fb3a95841c35127f3d0ea8b0f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nur-wrvsrx": {
+      "inputs": {
+        "flake-parts": "flake-parts",
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1683383059,
+        "narHash": "sha256-mDk6ZlnMOpzNhhAatPPewqKfw3VrinvCdg4pSdecpfA=",
+        "owner": "wrvsrx",
+        "repo": "nur-packages",
+        "rev": "acf4082625c69ecc95ae66d96cc9f1979d1694b6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "wrvsrx",
+        "repo": "nur-packages",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "flake-parts": [
+          "nur-wrvsrx",
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nur-wrvsrx",
+          "nixpkgs"
+        ],
+        "nur-wrvsrx": "nur-wrvsrx"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
