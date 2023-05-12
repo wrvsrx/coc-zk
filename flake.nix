@@ -11,7 +11,11 @@
     systems = [ "x86_64-linux" ];
     perSystem = { pkgs, ... }: rec {
       packages.default = pkgs.callPackage ./default.nix { };
-      devShells.default = pkgs.mkShell { inputsFrom = [ packages.default ]; };
+      devShells.default = pkgs.mkShell {
+        nativeBuildInputs = with pkgs; [
+          yarn
+        ];
+      };
     };
   };
 }

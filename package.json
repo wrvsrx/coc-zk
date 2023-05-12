@@ -56,5 +56,8 @@
         "title": "coc-zk command title"
       }
     ]
-  }
+  },
+  "files": [
+    "lib/index.js"
+  ]
 }
