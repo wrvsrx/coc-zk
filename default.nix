@@ -7,8 +7,10 @@ let
     inherit name;
     src = ./.;
     buildPhase = ''
+      yarn --offline build
       yarn --offline pack --filename main.tgz
     '';
+    distPhase = "true";
     installPhase = ''
       mkdir -p $out
       cp main.tgz $out/$name.tgz
