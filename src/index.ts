@@ -1,54 +1,31 @@
-import { commands, CompleteResult, ExtensionContext, listManager, sources, window, workspace } from 'coc.nvim';
+import {commands, CompleteResult, ExtensionContext, listManager, sources, window, workspace, LanguageClient, services, ServerOptions} from 'coc.nvim';
 import DemoList from './lists';
 
 export async function activate(context: ExtensionContext): Promise<void> {
-  window.showMessage(`coc-zk works!`);
+  const config = workspace.getConfiguration('coc-zk')
+  const isEnable = config.get<boolean>('enable', true)
+  if (!isEnable) {
+    return
+  }
+
+  const serverOptions: ServerOptions = {
+    command: 'zk',
+    args: ['lsp']
+  }
+  const clientOptions = {documentSelector: ['pandoc', 'markdown'], }
+  const client = new LanguageClient(
+    'zk', // the id
+    'zk', // the name of the language server
+    serverOptions,
+    clientOptions
+  )
+  context.subscriptions.push(services.registLanguageClient(client))
 
   context.subscriptions.push(
-    commands.registerCommand('coc-zk.Command', async () => {
-      window.showMessage(`coc-zk Commands works!`);
-    }),
-
-    listManager.registerList(new DemoList(workspace.nvim)),
-
-    sources.createSource({
-      name: 'coc-zk completion source', // unique id
-      doComplete: async () => {
-        const items = await getCompletionItems();
-        return items;
-      },
-    }),
-
-    workspace.registerKeymap(
-      ['n'],
-      'zk-keymap',
-      async () => {
-        window.showMessage(`registerKeymap`);
-      },
-      { sync: false }
-    ),
-
-    workspace.registerAutocmd({
-      event: 'InsertLeave',
-      request: true,
-      callback: () => {
-        window.showMessage(`registerAutocmd on InsertLeave`);
-      },
-    })
+    // commands.registerCommand('coc-zk.list', async () => {
+    //   window.showMessage(`coc-zk Commands works!`);
+    // }),
+    //
+    // listManager.registerList(new DemoList(workspace.nvim)),
   );
-}
-
-async function getCompletionItems(): Promise<CompleteResult> {
-  return {
-    items: [
-      {
-        word: 'TestCompletionItem 1',
-        menu: '[coc-zk]',
-      },
-      {
-        word: 'TestCompletionItem 2',
-        menu: '[coc-zk]',
-      },
-    ],
-  };
 }

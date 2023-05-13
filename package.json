@@ -50,14 +50,12 @@
         }
       }
     },
-    "commands": [
-      {
-        "command": "coc-zk.Command",
-        "title": "coc-zk command title"
-      }
-    ]
+    "commands": []
   },
   "files": [
     "lib/index.js"
-  ]
+  ],
+  "dependencies": {
+    "@types/node": "^20.1.3"
+  }
 }
