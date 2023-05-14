@@ -36,9 +36,23 @@
     "typescript": "^5.0.4"
   },
   "activationEvents": [
-    "*"
+    "workspaceContains:.zk/config.toml"
   ],
   "contributes": {
+    "rootPatterns": [
+      {
+        "filetype": "markdown",
+        "patterns": [
+          ".zk"
+        ]
+      },
+      {
+        "filetype": "pandoc",
+        "patterns": [
+          ".zk"
+        ]
+      }
+    ],
     "configuration": {
       "type": "object",
       "title": "coc-zk configuration",
