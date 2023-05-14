@@ -1,5 +1,5 @@
 import {commands, CompleteResult, ExtensionContext, listManager, sources, window, workspace, LanguageClient, services, ServerOptions} from 'coc.nvim';
-import DemoList from './lists';
+import ZkList from './lists';
 
 export async function activate(context: ExtensionContext): Promise<void> {
   const config = workspace.getConfiguration('coc-zk')
@@ -22,10 +22,10 @@ export async function activate(context: ExtensionContext): Promise<void> {
   context.subscriptions.push(services.registLanguageClient(client))
 
   context.subscriptions.push(
-    // commands.registerCommand('coc-zk.list', async () => {
-    //   window.showMessage(`coc-zk Commands works!`);
-    // }),
-    //
-    // listManager.registerList(new DemoList(workspace.nvim)),
+    commands.registerCommand('coc-zk.list', async () => {
+      window.showMessage(`coc-zk Commands starts!`);
+    }),
+
+    listManager.registerList(new ZkList(workspace.nvim)),
   );
 }
