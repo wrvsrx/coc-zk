@@ -1,18 +1,12 @@
 # coc-zk
 
-
-
 ## Install
 
 `:CocInstall coc-zk`
 
-## Keymaps
-
-`nmap <silent> <C-l> <Plug>(coc-coc-zk-keymap)`
-
 ## Lists
 
-`:CocList demo_list`
+`:CocList zk`
 
 ## License
 
