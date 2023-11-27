@@ -35,14 +35,17 @@ export default class ZkList extends BasicList {
     const note_path = resolve_notebook_path();
 
     const argv = await yargs(context.args).options({
-      tags: {type: 'array', alias: 't'}
+      tags: {type: 'array', alias: 't'},
+      match: {type: 'array', alias: 'm'},
     }).argv;
-    const tags = argv.tags;
 
-    let notes: Note[] = await commands.executeCommand('zk.list', note_path, {
+    const argvMatch = argv.match ? argv.match.map(m => m.toString()) : [];
+    const match = context.input ? [...argvMatch, context.input] : [];
+
+    const notes: Note[] = await commands.executeCommand('zk.list', note_path, {
       select: ['title', 'path'],
-      tags: tags,
-      match: context.input ? context.input.split(' ') : [],
+      tags: argv.tags,
+      match: match,
     });
 
     return notes.map(note => ({
