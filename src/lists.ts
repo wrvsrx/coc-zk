@@ -40,7 +40,7 @@ export default class ZkList extends BasicList {
     }).argv;
 
     const argvMatch = argv.match ? argv.match.map(m => m.toString()) : [];
-    const match = context.input ? [...argvMatch, context.input] : [];
+    const match = context.input ? [...argvMatch, context.input] : argvMatch;
 
     const notes: Note[] = await commands.executeCommand('zk.list', note_path, {
       select: ['title', 'path'],
