@@ -2,6 +2,7 @@ import {BasicList, ListAction, ListContext, ListItem, Neovim, commands, Uri, wor
 import path from 'path';
 import fs from 'fs';
 import assert from 'assert';
+import yargs from 'yargs';
 
 type Note = {
   title?: string;
@@ -20,6 +21,7 @@ function resolve_notebook_path() {
 
 export default class ZkList extends BasicList {
   public readonly name = 'zk';
+  public readonly interactive = true
   public readonly description = 'CocList for zk';
   public readonly defaultAction = 'open';
   public actions: ListAction[] = [];
@@ -31,10 +33,20 @@ export default class ZkList extends BasicList {
 
   public async loadItems(context: ListContext): Promise<ListItem[]> {
     const note_path = resolve_notebook_path();
-    let notes: Note[] = await commands.executeCommand('zk.list', note_path, {select: ['title', 'path']})
+
+    const argv = await yargs(context.args).options({
+      tags: {type: 'array', alias: 't'}
+    }).argv;
+    const tags = argv.tags;
+
+    let notes: Note[] = await commands.executeCommand('zk.list', note_path, {
+      select: ['title', 'path'],
+      tags: tags,
+      match: context.input ? context.input.split(' ') : [],
+    });
 
     return notes.map(note => ({
-      label: note.title ? note.title : note.path,
+      label: (note.title ? note.title : note.path),
       location: Uri.file(path.join(note_path, note.path)).toString()
     }))
   }
