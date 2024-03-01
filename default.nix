@@ -1,27 +1,12 @@
-{ stdenvNoCC
-, mkYarnPackage
-}:
-let
+{ mkYarnPackage }:
+mkYarnPackage {
   name = "coc-zk";
-  tgz = mkYarnPackage {
-    inherit name;
-    src = ./.;
-    buildPhase = ''
-      yarn --offline build
-      yarn --offline pack --filename main.tgz
-    '';
-    distPhase = "true";
-    installPhase = ''
-      mkdir -p $out
-      cp main.tgz $out/$name.tgz
-    '';
-  };
-in
-stdenvNoCC.mkDerivation {
-  inherit name;
-  src = "${tgz}/${name}.tgz";
+  src = ./.;
+  buildPhase = "yarn --offline build";
   installPhase = ''
+    yarn --offline pack --filename main.tgz
     mkdir -p $out
-    mv * $out
+    tar xzf main.tgz --strip-components=1 -C $out
   '';
+  distPhase = "true";
 }
