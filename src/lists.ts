@@ -37,6 +37,7 @@ export default class ZkList extends BasicList {
     const argv = await yargs(context.args).options({
       tags: {type: 'array', alias: 't'},
       match: {type: 'array', alias: 'm'},
+      matchStrategy: {type: 'string', alias: 'M'},
     }).argv;
 
     const argvMatch = argv.match ? argv.match.map(m => m.toString()) : [];
@@ -46,6 +47,7 @@ export default class ZkList extends BasicList {
       select: ['title', 'path'],
       tags: argv.tags,
       match: match,
+      matchStrategy: argv.matchStrategy,
     });
 
     return notes.map(note => ({
