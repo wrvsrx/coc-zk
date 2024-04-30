@@ -35,9 +35,9 @@ export default class ZkList extends BasicList {
     const note_path = resolve_notebook_path();
 
     const argv = await yargs(context.args).options({
-      tags: {type: 'array', alias: 't'},
-      match: {type: 'array', alias: 'm'},
-      matchStrategy: {type: 'string', alias: 'M'},
+      tags: {type: 'array', alias: ['t', 'tag']},
+      match: {type: 'array', alias: ['m', 'match']},
+      matchStrategy: {type: 'string', alias: ['M', 'match-strategy']},
     }).argv;
 
     const argvMatch = argv.match ? argv.match.map(m => m.toString()) : [];
