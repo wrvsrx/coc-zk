@@ -1,5 +1,6 @@
-import {commands, CompleteResult, ExtensionContext, listManager, sources, window, workspace, LanguageClient, services, ServerOptions} from 'coc.nvim';
+import {commands, ExtensionContext, listManager, workspace, LanguageClient, services, ServerOptions} from 'coc.nvim';
 import ZkList from './lists';
+import {resolve_notebook_path} from './notebook';
 
 export async function activate(context: ExtensionContext): Promise<void> {
   const config = workspace.getConfiguration('coc-zk')
@@ -20,12 +21,9 @@ export async function activate(context: ExtensionContext): Promise<void> {
     clientOptions
   )
   context.subscriptions.push(services.registLanguageClient(client))
-
-  context.subscriptions.push(
-    commands.registerCommand('coc-zk.list', async () => {
-      window.showMessage(`coc-zk Commands starts!`);
-    }),
-
-    listManager.registerList(new ZkList(workspace.nvim)),
-  );
+  context.subscriptions.push(listManager.registerList(new ZkList(workspace.nvim)));
+  context.subscriptions.push(commands.registerCommand('coc-zk.new', async (...args: any[]) => {
+    const res: {path: string, content: string} = await commands.executeCommand('zk.new', resolve_notebook_path(), ...args)
+    workspace.openResource(res.path)
+  }))
 }
