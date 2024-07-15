@@ -16,8 +16,7 @@
     "clean": "rimraf lib",
     "watch": "node esbuild.mjs --watch",
     "build": "node esbuild.mjs",
-    "prepare": "node esbuild.mjs",
-    "postinstall": "cp node_modules/coc.nvim/typings/index.d.ts node_modules/coc.nvim"
+    "prepare": "node esbuild.mjs"
   },
   "prettier": {
     "singleQuote": true,
@@ -92,7 +91,7 @@
   "dependencies": {
     "@types/node": "^20.1.3",
     "@types/yargs": "^17.0.32",
-    "coc.nvim": "neoclide/coc.nvim",
+    "coc.nvim": "^0.0.83-next.18",
     "yargs": "^17.7.2"
   }
 }
