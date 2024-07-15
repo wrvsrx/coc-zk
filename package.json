@@ -57,10 +57,25 @@
       "type": "object",
       "title": "coc-zk configuration",
       "properties": {
-        "coc-zk.enabled": {
+        "zk.enabled": {
           "type": "boolean",
           "default": true,
           "description": "Enable coc-zk extension"
+        },
+        "zk.disabledFeatures": {
+          "type": "array",
+          "default": [],
+          "description": "disabled zk features"
+        },
+        "zk.trace.server": {
+          "type": "string",
+          "enum": [
+            "off",
+            "messages",
+            "verbose"
+          ],
+          "default": "off",
+          "description": "Trace requests to zk"
         }
       }
     },
