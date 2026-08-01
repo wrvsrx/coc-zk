@@ -2,20 +2,24 @@
   description = "flake template";
 
   inputs = {
-    flake-lock.url = "github:wrvsrx/flake-lock";
-    nixpkgs.follows = "flake-lock/nixpkgs";
-    flake-parts.follows = "flake-lock/flake-parts";
+    nur-wrvsrx.url = "github:wrvsrx/nur-packages";
+    nixpkgs.follows = "nur-wrvsrx/nixpkgs";
+    flake-parts.follows = "nur-wrvsrx/flake-parts";
   };
 
-  outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } ({ inputs, ... }: {
-    systems = [ "x86_64-linux" ];
-    perSystem = { pkgs, ... }: rec {
-      packages.default = pkgs.callPackage ./default.nix { };
-      devShells.default = pkgs.mkShell {
-        nativeBuildInputs = with pkgs; [
-          yarn
-        ];
-      };
-    };
-  });
+  outputs =
+    inputs:
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } (
+      { inputs, ... }: {
+        systems = [ "x86_64-linux" ];
+        perSystem = { pkgs, ... }: {
+          packages.default = pkgs.callPackage ./default.nix { };
+          devShells.default = pkgs.mkShell {
+            nativeBuildInputs = with pkgs; [
+              yarn
+            ];
+          };
+        };
+      }
+    );
 }
